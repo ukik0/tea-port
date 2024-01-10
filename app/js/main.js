@@ -222,7 +222,6 @@ const moodSlider = new Swiper('.mood-slider', {
   },
   on: {
     init: function (swiper) {
-      console.log(swiper.pagination);
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
