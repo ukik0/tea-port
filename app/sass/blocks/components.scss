@@ -246,6 +246,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  user-select: none;
 
   @media (max-width: 48em) {
     font-size: 6rem;
@@ -384,8 +385,78 @@
     }
   }
 
-  .swiper-pagination .swiper-pagination-bullet-active {
-    visibility: hidden;
+  .swiper-pagination {
+    align-items: center;
+    &._vertical {
+      @media (min-width: 48em) {
+        .swiper-pagination-bullet {
+          flex-direction: column;
+          transition: margin-bottom 0.3s ease;
+          &:last-child {
+            flex-direction: column-reverse;
+            &.swiper-pagination-bullet-active {
+              margin-top: 2.4rem;
+              span {
+                margin-top: 7.5rem;
+              }
+            }
+          }
+          &.swiper-pagination-bullet-active {
+            margin-bottom: 2.4rem;
+            visibility: visible;
+            span {
+              margin-bottom: 7.5rem;
+              &::before {
+                opacity: 1;
+              }
+            }
+          }
+        }
+        .swiper-scrollbar.swiper-scrollbar-horizontal {
+          transform: rotate(90deg);
+        }
+        span {
+          transition: margin-bottom 0.3s ease;
+        }
+      }
+      @media (max-width: 48em) {
+        .swiper-pagination .swiper-pagination-bullet-active {
+          visibility: hidden;
+        }
+      }
+    }
+  }
+  .swiper-pagination .swiper-pagination-bullet {
+    display: inline-flex;
+    align-items: center;
+    .swiper-scrollbar.swiper-scrollbar-horizontal {
+      position: static;
+    }
+    span {
+      position: relative;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5rem;
+        height: 5rem;
+        background-image: url('../img/icon/ellipse.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.3s ease;
+      }
+    }
+    &.swiper-pagination-bullet-active {
+      visibility: hidden;
+      span {
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
   }
 }
 

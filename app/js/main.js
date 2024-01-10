@@ -6,17 +6,110 @@ const rem = function (rem) {
   }
 };
 
-const createPag = (activeIndex, classPart) => {
+const createPag = (activeIndex, classPart, scrollbar, slider) => {
   const wrapper = document.querySelector(`${classPart}`);
   const current = wrapper.querySelector('.pag__current');
   const bullet = wrapper.querySelector('.swiper-pagination-bullet');
-  if (bullet.classList.contains('swiper-pagination-bullet-active')) {
-    bullet.style.display = 'none';
-  } else {
-    bullet.style.display = 'block';
-  }
-  current.textContent = activeIndex;
+  const init = () => {
+    if (scrollbar && window.innerWidth > 768) {
+      slider.pagination.bullets[activeIndex - 1].appendChild(scrollbar);
+      slider.pagination.bullets.forEach(bullet => {
+        bullet.style.display = 'inline-flex';
+      });
+    } else {
+      if (bullet) {
+        scrollbar
+          ? document
+              .querySelector('.pag__scrollbar-wrapper')
+              .appendChild(scrollbar)
+          : null;
+        if (bullet.classList.contains('swiper-pagination-bullet-active')) {
+          bullet.style.display = 'none';
+        } else {
+          bullet.style.display = 'block';
+        }
+        current.innerHTML = `${activeIndex}`;
+      }
+    }
+  };
+  init();
+  window.addEventListener('resize', init);
 };
+
+if (document.querySelector('.carousel-hero-product__slider')) {
+  const productHeroSlider = new Swiper('.carousel-hero-product__slider', {
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true,
+    },
+    updateOnWindowResize: true,
+    speed: 800,
+    loop: true,
+    navigation: {
+      prevEl: '.carousel-hero-product__control-btn_prev',
+      nextEl: '.carousel-hero-product__control-btn_next',
+    },
+  });
+}
+
+const ceremonySlider = new Swiper('.ceremony__slider', {
+  slidesPerGroup: 1,
+  observer: true,
+  effect: 'fade',
+  loop: true,
+  fadeEffect: {
+    crossFade: true,
+  },
+  allowTouchMove: false,
+  autoHeight: true,
+  updateOnWindowResize: true,
+  speed: 800,
+
+  pagination: {
+    el: '.ceremony .swiper-pagination',
+    clickable: true,
+    renderBullet: function (index, className) {
+      index++;
+      return `<span class="${className}">
+        <span>${index}</span>
+      </span>`;
+    },
+  },
+  scrollbar: {
+    el: '.ceremony .pag__scrollbar',
+  },
+  breakpoints: {
+    768: {
+      allowTouchMove: true,
+    },
+  },
+  on: {
+    init: function (swiper) {
+      const activeSlideIndex = this.realIndex;
+      const slidesPerGroup = this.params.slidesPerGroup;
+      const activePaginationIndex =
+        Math.floor(activeSlideIndex / slidesPerGroup) + 1;
+      createPag(
+        activePaginationIndex,
+        '.ceremony',
+        swiper.scrollbar.el,
+        swiper
+      );
+    },
+    beforeTransitionStart: function (swiper) {
+      const activeSlideIndex = this.realIndex;
+      const slidesPerGroup = this.params.slidesPerGroup;
+      const activePaginationIndex =
+        Math.floor(activeSlideIndex / slidesPerGroup) + 1;
+      createPag(
+        activePaginationIndex,
+        '.ceremony',
+        swiper.scrollbar.el,
+        swiper
+      );
+    },
+  },
+});
 
 const heroSlider = new Swiper('.hero-slider__box', {
   slidesPerGroup: 1,
@@ -24,6 +117,9 @@ const heroSlider = new Swiper('.hero-slider__box', {
   effect: 'fade',
   updateOnWindowResize: true,
   speed: 800,
+  fadeEffect: {
+    crossFade: true,
+  },
 
   creativeEffect: {
     prev: {
@@ -38,26 +134,38 @@ const heroSlider = new Swiper('.hero-slider__box', {
     clickable: true,
     renderBullet: function (index, className) {
       index++;
-      return '<span class="' + className + '">' + index + '</span>';
+      return `<span class="${className}">
+        <span>${index}</span>
+      </span>`;
     },
   },
   scrollbar: {
     el: '.hero-slider .pag__scrollbar',
   },
   on: {
-    init: function () {
+    init: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.hero-slider');
+      createPag(
+        activePaginationIndex,
+        '.hero-slider',
+        swiper.scrollbar.el,
+        swiper
+      );
     },
-    beforeTransitionStart: function () {
+    beforeTransitionStart: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.hero-slider');
+      createPag(
+        activePaginationIndex,
+        '.hero-slider',
+        swiper.scrollbar.el,
+        swiper
+      );
     },
   },
   breakpoints: {
@@ -82,7 +190,7 @@ const moodSlider = new Swiper('.mood-slider', {
   updateOnWindowResize: true,
 
   pagination: {
-    el: '.mood .swiper-pagination',
+    el: '.hor-slider.mood .swiper-pagination',
     clickable: true,
     renderBullet: function (index, className) {
       index++;
@@ -113,19 +221,19 @@ const moodSlider = new Swiper('.mood-slider', {
     },
   },
   on: {
-    init: function () {
+    init: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.mood');
+      createPag(activePaginationIndex, '.mood', null, swiper);
     },
-    beforeTransitionStart: function () {
+    beforeTransitionStart: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.mood');
+      createPag(activePaginationIndex, '.mood', null, swiper);
     },
   },
 });
@@ -172,19 +280,19 @@ const ourSlider = new Swiper('.our-slider', {
     },
   },
   on: {
-    init: function () {
+    init: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.our');
+      createPag(activePaginationIndex, '.our', null, swiper);
     },
-    beforeTransitionStart: function () {
+    beforeTransitionStart: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.our');
+      createPag(activePaginationIndex, '.our', null, swiper);
     },
   },
 });
@@ -231,19 +339,19 @@ const popularSlider = new Swiper('.popular-slider', {
     },
   },
   on: {
-    init: function () {
+    init: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.popular');
+      createPag(activePaginationIndex, '.popular', null, swiper);
     },
-    beforeTransitionStart: function () {
+    beforeTransitionStart: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.popular');
+      createPag(activePaginationIndex, '.popular', null, swiper);
     },
   },
 });
@@ -290,19 +398,19 @@ const countrySlider = new Swiper('.country-slider', {
     },
   },
   on: {
-    init: function () {
+    init: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.country');
+      createPag(activePaginationIndex, '.country', null, swiper);
     },
-    beforeTransitionStart: function () {
+    beforeTransitionStart: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.country');
+      createPag(activePaginationIndex, '.country', null, swiper);
     },
   },
 });
@@ -336,19 +444,19 @@ const catalogSlider = new Swiper('.products-list-swiper', {
   observer: true,
   updateOnWindowResize: true,
   on: {
-    init: function () {
+    init: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.catalog');
+      createPag(activePaginationIndex, '.catalog', null, swiper);
     },
-    beforeTransitionStart: function () {
+    beforeTransitionStart: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.catalog');
+      createPag(activePaginationIndex, '.catalog', null, swiper);
     },
   },
 });
@@ -407,19 +515,19 @@ const articlesSlider = new Swiper('.articles-slider', {
     },
   },
   on: {
-    init: function () {
+    init: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.articles');
+      createPag(activePaginationIndex, '.articles', null, swiper);
     },
-    beforeTransitionStart: function () {
+    beforeTransitionStart: function (swiper) {
       const activeSlideIndex = this.realIndex;
       const slidesPerGroup = this.params.slidesPerGroup;
       const activePaginationIndex =
         Math.floor(activeSlideIndex / slidesPerGroup) + 1;
-      createPag(activePaginationIndex, '.articles');
+      createPag(activePaginationIndex, '.articles', null, swiper);
     },
   },
 });
