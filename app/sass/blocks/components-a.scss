@@ -1,0 +1,19 @@
+.rub {
+  font-family: Circe;
+  font-weight: 700;
+}
+
+.pb18 {
+  &.section {
+    padding-bottom: 18rem;
+    @media (max-width: 48em) {
+      padding-bottom: 12rem;
+    }
+  }
+}
+
+.mobile-only {
+  @media (min-width: 48em) {
+    display: none;
+  }
+}
