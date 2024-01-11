@@ -1,24 +1,131 @@
 html {
-	font-size: 0.5208335vw; // на разрешении 1920 0.520835vw === 10px
-	font-style: normal;
-	font-weight: normal;
-	-webkit-animation: bugfix infinite 1s;
-	line-height: 1.2;
-	margin: 0;
-	padding: 0;
-	font-family: "Inria Sans", sans-serif;
+    font-size: 0.5208335vw; // на разрешении 1920 0.520835vw === 10px
+    font-style: normal;
+    font-weight: normal;
+    -webkit-animation: bugfix infinite 1s;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inria Sans', sans-serif;
 }
 
 body {
-	background-color: #EBEBEB;
+    background-color: #ebebeb;
 }
 
 @media (max-width: 48em) {
-	html {
-		font-size: 5px;
-		font-size: 1.5625vw;
-		font-size: calc((100 / 375) * 5vw); // где 375 это ширина моб версии макета
-		-webkit-text-size-adjust: none;
-	}
+    html {
+        font-size: 5px;
+        font-size: 1.5625vw;
+        font-size: calc((100 / 375) * 5vw); // где 375 это ширина моб версии макета
+        -webkit-text-size-adjust: none;
+    }
 }
 
+@mixin small-tablet {
+    @media (max-width: 48em) {
+        @content;
+    }
+}
+
+@media (min-width: 48.01em) {
+    .mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 48em) {
+    .desktop {
+        display: none;
+    }
+}
+
+.checkbox,
+.radio {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    gap: 2.8rem;
+    cursor: pointer;
+
+    @include small-tablet {
+        gap: 4.8rem;
+    }
+}
+
+.checkbox span,
+.radio span {
+    color: #393531;
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    letter-spacing: 0.54rem;
+
+    @include small-tablet {
+        font-size: 3.6rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: 1rem;
+    }
+}
+
+.checkbox input,
+.radio input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('../img/icon/input-icon.svg') no-repeat center;
+    background-size: cover;
+    max-width: 5.4rem;
+    width: 100%;
+    height: 5.4rem;
+    border-radius: 50%;
+    position: relative;
+    -webkit-transition: 0.15s all ease-in-out;
+    transition: 0.15s all ease-in-out;
+
+    @include small-tablet {
+        max-width: 6.4rem;
+        height: 6.4rem;
+    }
+}
+
+.checkbox input::before,
+.radio input::before {
+    content: '';
+    position: absolute;
+    opacity: 0;
+    -webkit-transition: 0.3s all ease;
+    transition: 0.3s all ease;
+    background: #586cbe;
+    border-radius: inherit;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    background: url('../img/icon/checked-icon.svg') no-repeat center;
+    background-size: cover;
+    max-width: 2.6rem;
+    width: 100%;
+    height: 2.6rem;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    @include small-tablet {
+        max-width: 4rem;
+        height: 4rem;
+    }
+}
+
+.checkbox input:checked::before,
+.radio input:checked::before {
+    opacity: 1;
+}
