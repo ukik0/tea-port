@@ -11,6 +11,10 @@ html {
 
 body {
     background-color: #ebebeb;
+
+    &.locked {
+        overflow: hidden;
+    }
 }
 
 @media (max-width: 48em) {
