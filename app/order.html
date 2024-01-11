@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="./css/style.min.css" />
         <script src="https://unpkg.com/imask"></script>
+        <script
+            src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=cb93da52-9741-4ffe-86ea-93a91ce99a1c"
+            type="text/javascript"
+        ></script>
         <title>TEAPORT - Доставка и оплата</title>
     </head>
     <body>
@@ -83,7 +87,6 @@
                     </div>
 
                     <form data-dev action="#" class="order__content">
-                    <form data-dev action="#" class="order__content">
                         <div class="order__content-wrapper">
                             <div class="order__contacts">
                                 <h2 class="order__contacts-title title">контакты</h2>
@@ -98,25 +101,9 @@
                                                 id="name"
                                                 placeholder="Ваше имя"
                                             />
-                                        <label for="name" class="inp">
-                                            <input
-                                                data-validate
-                                                data-required
-                                                type="text"
-                                                id="name"
-                                                placeholder="Ваше имя"
-                                            />
                                         </label>
                                     </li>
                                     <li class="order__contacts-field">
-                                        <label for="surname" class="inp">
-                                            <input
-                                                data-validate
-                                                data-required
-                                                type="text"
-                                                id="surname"
-                                                placeholder="Фамилия"
-                                            />
                                         <label for="surname" class="inp">
                                             <input
                                                 data-validate
@@ -136,24 +123,9 @@
                                                 data-tel-mask
                                                 placeholder="ваш телефон"
                                             />
-                                        <label class="inp">
-                                            <input
-                                                data-validate
-                                                data-required
-                                                type="tel"
-                                                data-tel-mask
-                                                placeholder="ваш телефон"
-                                            />
                                         </label>
                                     </li>
                                     <li class="order__contacts-field">
-                                        <label class="inp">
-                                            <input
-                                                data-validate
-                                                data-required
-                                                type="email"
-                                                placeholder="e-mail"
-                                            />
                                         <label class="inp">
                                             <input
                                                 data-validate
@@ -210,7 +182,6 @@
 
                                     <div data-tabs-body class="order__delivery-tabs-content select-close">
                                         <div class="order__delivery-tab-body" data-tabs-item="">
-                                            <div action="#">
                                             <div action="#">
                                                 <ul class="order__delivery-form-fields">
                                                     <li
@@ -356,10 +327,8 @@
                                                     </div>
                                                 </button>
                                             </div>
-                                            </div>
                                         </div>
                                         <div class="order__delivery-tab-body" data-tabs-item="">
-                                            <div>
                                             <div>
                                                 <ul class="order__delivery-form-fields">
                                                     <li
@@ -480,10 +449,8 @@
                                                     </div>
                                                 </button>
                                             </div>
-                                            </div>
                                         </div>
                                         <div class="order__delivery-tab-body" data-tabs-item="">
-                                            <div>
                                             <div>
                                                 <ul class="order__delivery-form-fields">
                                                     <li
@@ -607,10 +574,8 @@
                                                     </div>
                                                 </button>
                                             </div>
-                                            </div>
                                         </div>
                                         <div class="order__delivery-tab-body" data-tabs-item="">
-                                            <div>
                                             <div>
                                                 <ul class="order__delivery-form-fields">
                                                     <li
@@ -731,7 +696,6 @@
                                                     </div>
                                                 </button>
                                             </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -841,10 +805,9 @@
                             </button>
                         </aside>
                     </form>
-                    </form>
                 </section>
             </div>
         </main>
-        @@include('./template/modals.html') @@include('./template/footer.html')
+        @@include('./template/footer.html') @@include('./template/modals.html')
     </body>
 </html>
