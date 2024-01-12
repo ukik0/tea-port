@@ -46,8 +46,9 @@
     &__item-img {
         margin: 0 auto;
         margin-top: 6rem;
-        height: 22.6rem;
-        max-width: 26.3rem;
+        height: 16rem;
+        max-width: 26rem;
+        margin-bottom: 5.5rem;
 
         @include small-tablet {
             position: absolute;
@@ -86,7 +87,7 @@
 
         &--white {
             overflow: visible;
-            width: 36rem;
+            width: 100%;
             background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
             -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
@@ -96,7 +97,7 @@
             @include small-tablet {
                 width: 31rem;
                 margin-left: 9rem;
-                padding: 5rem 7rem 5rem 15rem;
+                padding: 6rem 7rem 6rem 15rem;
                 margin-top: 0;
                 background: #fff;
             }
@@ -104,6 +105,23 @@
             .hor-slider__item-img {
                 border-radius: 50%;
                 overflow: hidden;
+
+                @include small-tablet {
+                    margin-top: 0;
+                    background: #fff;
+                    border-radius: 50%;
+                    padding: 2rem;
+                    border: 0.4rem solid #a2b9c3;
+                    display: flex;
+                    max-width: 15.6rem;
+                    width: 100%;
+                    height: 15.6rem;
+                    align-items: center;
+                    justify-content: center;
+                    top: 16rem;
+                    left: -7rem;
+                    margin-bottom: 0;
+                }
             }
         }
     }
@@ -132,7 +150,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 2.8rem;
+            gap: 1.8rem;
             align-items: flex-start;
 
             > strong {
@@ -219,7 +237,7 @@
         cursor: pointer;
         height: 4.2rem;
         border: 0.2rem solid #fff;
-        background-color: #a9b5b7;
+        background-color: transparent;
         visibility: hidden;
 
         @include small-tablet {
@@ -340,21 +358,7 @@
         height: 26rem;
         margin-top: 1.5rem;
 
-        @include small-tablet {
-            margin-top: 0;
-            background: #fff;
-            border-radius: 50%;
-            padding: 2rem;
-            border: 0.4rem solid #a2b9c3;
-            display: flex;
-            max-width: 15.6rem;
-            width: 100%;
-            height: 15.6rem;
-            align-items: center;
-            justify-content: center;
-            top: 16rem;
-            left: -7rem;
-        }
+
         img {
             -o-object-fit: contain;
             object-fit: contain;

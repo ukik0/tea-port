@@ -35,9 +35,9 @@ const setCloseSelects = () => {
 				current.addEventListener('click', () => {
 					childs.forEach((item) => {
 						if (current === item && !item.classList.contains('active')) {
-							current.classList.add(activeClass);
+							current.classList.add('active');
 						} else {
-							item.classList.remove(activeClass);
+							item.classList.remove('active');
 						}
 					});
 				});

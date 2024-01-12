@@ -552,14 +552,14 @@ const clearFiltersButton = document.querySelector('.products-list__filter-contro
 if (orderCatalogButton) {
   orderCatalogButton.addEventListener('click', () => {
     const menu = document.querySelector('.products-list__head');
-    document.body.classList.add('locked');
+    document.documentElement.classList.add('lock');
 
     menu.classList.add('--active');
   });
 
   closeMenuButton.addEventListener('click', () => {
     const menu = document.querySelector('.products-list__head');
-    document.body.classList.remove('locked');
+    document.documentElement.classList.remove('lock');
 
     menu.classList.remove('--active');
   });

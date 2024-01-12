@@ -3,10 +3,11 @@
     background-repeat: no-repeat;
     background-position: center top;
     background-size: 100%;
-    overflow: hidden;
+
 
     @include small-tablet {
         background-image: url('../img/order/background-mobile.svg');
+        overflow: hidden;
     }
 
     .section {
